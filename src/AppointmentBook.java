@@ -25,8 +25,9 @@ public class AppointmentBook {
 
     public boolean reserveBlock(int period, int startMinute, int duration) {
         for (int i = startMinute; i < startMinute + duration; i++) {
-           return schedule[period - 1][i] = false;
+            schedule[period - 1][i] = false;
         }
+        return false;
     }
 
     public boolean makeAppointment(int startPeriod, int endPeriod, int duration) {
@@ -35,8 +36,9 @@ public class AppointmentBook {
             if (freeBlock > -1) {
                 reserveBlock(i, freeBlock, duration);
                 return true;
-            } else return false;
+            }
         }
+        return false;
     }
 
     public void printPeriod(int period) {
