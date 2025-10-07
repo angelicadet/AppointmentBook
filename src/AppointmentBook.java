@@ -1,6 +1,5 @@
 public class AppointmentBook {
 
-
     boolean[][] schedule;
 
     public AppointmentBook(boolean[][] schedule) {
@@ -13,22 +12,36 @@ public class AppointmentBook {
 
     public int findFreeBlock(int period, int duration) {
         int block = 0;
-        for(int i=0; i<60; i++) {
+        for (int i = 0; i < 60; i++) {
             if (isMinuteFree(period, i)) {
                 block++;
                 if (block == duration) return i - duration + 1;
-            }
-            else block = 0;
+            } else block = 0;
         }
         return -1;
     }
 
+    int startMinute = 0;
+
+    public boolean reserveBlock(int period, int startMinute, int duration) {
+        for (int i = startMinute; i < startMinute + duration; i++) {
+           return schedule[period - 1][i] = false;
+        }
+    }
+
     public boolean makeAppointment(int startPeriod, int endPeriod, int duration) {
-        return false;
+        for (int i = startPeriod; i <= endPeriod; i++) {
+            int freeBlock = findFreeBlock(i, duration);
+            if (freeBlock > -1) {
+                reserveBlock(i, freeBlock, duration);
+                return true;
+            } else return false;
+        }
     }
 
     public void printPeriod(int period) {
         for (int i = 0; i < schedule[period - 1].length; i++)
             System.out.println(i + " " + schedule[period - 1][i]);
     }
+
 }
